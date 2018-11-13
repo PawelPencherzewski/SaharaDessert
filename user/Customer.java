@@ -2,6 +2,8 @@ package user;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import store.Sahara;
 
 public class Customer implements User {
@@ -22,6 +24,10 @@ public class Customer implements User {
 	
 	@Override
 	public void login(String username) {
-		Sahara.letsgo("customer", username);
+            try {
+                Sahara.letsgo("customer", username);
+            } catch (IOException ex) {
+                Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+            }
 	}
 }
