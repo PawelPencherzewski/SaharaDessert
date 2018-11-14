@@ -136,6 +136,19 @@ public class Data {
         } catch (IOException e) {
         }
     }
+    
+    public void register(String username, String fileName){
+        
+        try{
+		
+		FileWriter fw = new FileWriter(fileName, true);
+		PrintWriter pw = new PrintWriter(fw);
+		pw.println(username);
+		pw.close();
+		fw.close();                
+		}
+		catch(IOException e) {}
+    }
         
     }
     
