@@ -26,15 +26,16 @@ public class AddToCart implements Command {
     
     @Override
     public void execute() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
         Scanner reader = new Scanner(System.in);
             
         System.out.print("ProductName: ");
         String name = reader.next();
+        System.out.print("amount to puchase: ");
+        int amount = Integer.parseInt(reader.next());
         boolean found = checkIfNameExists(name, shop);
         if (found) {
-            cart.addProduct(requestProdName(name, shop));
+            cart.addProduct(requestProdName(name, shop), amount);
             System.out.println(cart.getString());
 
         }
