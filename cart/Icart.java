@@ -15,15 +15,16 @@ public interface Icart {
     
     
     
-    public void addProduct(Product p);
+    public void addProduct(Product p, int numOfProduct);
     public void removeProduct(Product p);
-
+    
     /**
      *
      * @param i
      * @return
      */
     public Product getProduct(int i);
+    public int getQuantity(int i);
     public String getString();
     public double getPrice();
     public int getNumItems();

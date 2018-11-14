@@ -17,6 +17,8 @@ public class Cart implements Icart{
     double totalPrice = 0;
     int items = 0;
     public ArrayList<Product> cart;
+    public ArrayList<Integer> quantity = new ArrayList<>();
+    
     
     public Cart()
     {
@@ -25,19 +27,23 @@ public class Cart implements Icart{
     }
     
     @Override
-    public void addProduct(Product p)
+    public void addProduct(Product p, int numOfProduct)
     {
         cart.add(p);
-        totalPrice += p.getProdPrice();
-        items++;
+        
+        quantity.add(numOfProduct);
+        totalPrice += (numOfProduct * p.getProdPrice());
+        items = items + numOfProduct;
     }
     
     @Override
     public void removeProduct(Product p)
     {
+        int x = cart.indexOf(p);
         cart.remove(p);
-        totalPrice -= p.getProdPrice();
-        items--;
+        totalPrice = totalPrice - (p.getProdPrice() * quantity.get(x));
+        items = items - quantity.get(x);
+        quantity.remove(x);
     }
 
     @Override
@@ -46,7 +52,7 @@ public class Cart implements Icart{
         String out = "";
         for(int i =0; i< cart.size(); i++)
         {
-           out += cart.get(i).getProdName() + ", ";
+           out += cart.get(i).getProdName() + ", " + quantity.get(i) + "\n";
         }
         out += "\n price: $" +totalPrice;
         return out;
@@ -90,5 +96,10 @@ public class Cart implements Icart{
         }
         totalPrice = 0;
         items = 0;
+    }
+
+    @Override
+    public int getQuantity(int i) {
+        return quantity.get(i);
     }
 }
