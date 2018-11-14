@@ -1,6 +1,6 @@
 package user;
+import data.Data;
 import java.io.*;
-import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import store.Sahara;
@@ -10,15 +10,10 @@ public class Staff implements User {
 	@Override	
 	public void register(String username) {
 		System.out.println("Inside staff::register() method");
-		try{
-		String usernameFile = "test/usernames.txt";
-		FileWriter fw = new FileWriter(usernameFile, true);
-		PrintWriter pw = new PrintWriter(fw);
-		pw.println(username);
-		pw.close();
-		fw.close();
-		}
-		catch(IOException e) {}
+                String usernameFile = "test/usernames.txt";
+		
+                 Data d = new Data();
+                d.register(username, usernameFile);
 	}
 	
 	@Override
