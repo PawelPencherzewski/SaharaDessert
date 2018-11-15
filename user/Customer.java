@@ -20,7 +20,8 @@ public class Customer implements User {
 	@Override
 	public void login(String username) {
             try {
-                Sahara.letsgo("customer", username);
+                int userlevel = ScanForExistingUser.returnType(username);
+                Sahara.letsgo("customer", username, userlevel);
             } catch (IOException ex) {
                 Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
             }

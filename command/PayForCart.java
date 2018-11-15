@@ -14,20 +14,23 @@ import payment.creditCard;
 import payment.creditCardPay;
 import receipt.ChainPatternDemo;
 import static store.Sahara.cart;
+import store.Store;
 
 /**
  *
  * @author Pawel
  */
 public class PayForCart implements Command{
-    Cart cart; 
+    Cart cart;
+    Store shop;
     String usernamename;
     double totalPrice;
     String cartList;
     double disc;
     
-     public PayForCart(Cart cart, String usernamename, double totalPrice, String cartList, double disc){
+     public PayForCart(Cart cart, Store shop, String usernamename, double totalPrice, String cartList, double disc){
         this.cart = cart;
+        this.shop = shop;
         this.usernamename = usernamename;
         this.totalPrice = totalPrice;
         this.cartList = cartList;
@@ -36,23 +39,43 @@ public class PayForCart implements Command{
 
     @Override
     public void execute() {
-        Scanner reader = new Scanner(System.in);  // Reading from System.in
+        if(cart.getNumItems() == 0){
+            System.out.println("The cart is empty. You can't pay for anything yet.");
+            return;
+        }
+        else{
+            Scanner reader = new Scanner(System.in);  // Reading from System.in
 
-        System.out.print("PAY USING: \n[1] Bitcoin\n[2] Credit Card\n");
-        String n = reader.nextLine();
-        if (n.equals("1")){
-		PaymentType bitcoin = new bitcoin(new bitcoinPay());
-		bitcoin.applyPay();
-                ChainPatternDemo.printReceipt(usernamename, totalPrice, cartList, disc);
-                cart.clearCart();
+            System.out.print("PAY USING: \n[1] Bitcoin\n[2] Credit Card\n");
+            String n = reader.nextLine();
+            if (n.equals("1")){
+                    PaymentType bitcoin = new bitcoin(new bitcoinPay());
+                    bitcoin.applyPay();
+                    ChainPatternDemo.printReceipt(usernamename, totalPrice, cartList, disc);
+                    for(int j = 0; j < cart.getNumItems(); j++){
+                        for(int i = 0; i < shop.storeSize(); i++){
+                            if(((cart.getProduct(j).getProdID()).equals(shop.getCatalog().get(i).getProdID())) ){
+                                shop.getCatalog().get(i).changeQuantity(shop.getCatalog().get(i).getProdQuantity() - cart.getProduct(j).getProdQuantity());
+                            }
+                        }
+                    }
+                    cart.clearCart();
+            }
+            else if(n.equals("2")){
+                    PaymentType card = new creditCard(new creditCardPay());
+                    card.applyPay();
+                    ChainPatternDemo.printReceipt(usernamename, totalPrice, cartList, disc);
+                    for(int j = 0; j < cart.getNumItems(); j++){
+                        for(int i = 0; i < shop.storeSize(); i++){
+                            if(((cart.getProduct(j).getProdID()).equals(shop.getCatalog().get(i).getProdID())) ){
+                                shop.getCatalog().get(i).changeQuantity(shop.getCatalog().get(i).getProdQuantity() - cart.getProduct(j).getProdQuantity());
+                            }
+                        }
+                    }                    
+                    cart.clearCart();
+            }
+            else
+                System.out.println("invalid method of payment seelcted");
         }
-        else if(n.equals("2")){
-		PaymentType card = new creditCard(new creditCardPay());
-		card.applyPay();
-                ChainPatternDemo.printReceipt(usernamename, totalPrice, cartList, disc);
-                cart.clearCart();
-        }
-        else
-            System.out.println("invalid method of payment seelcted");
     }
 }

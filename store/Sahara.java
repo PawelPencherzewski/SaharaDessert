@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import cart.Cart;
 import command.AddToCart;
+import command.BuyMembership;
 import command.ChangePrice;
 import command.ChangeQuantity;
 import command.Command;
@@ -24,9 +25,8 @@ public class Sahara {
     public static Cart cart = new Cart();
     //public static Store shop = new Store("SAHARA");
 
-    public static void letsgo(String usertype, String usernamename) throws IOException {
+    public static void letsgo(String usertype, String usernamename, int userlevel) throws IOException {
         Store shop = new Store("SAHARA"); 														 // Create Store
-    
         String pid = "999", pname;
         
         Data d = new Data();
@@ -45,42 +45,43 @@ public class Sahara {
         ArrayList<Command> con2 = new ArrayList();
         AddToCart addToCart = new AddToCart(shop);
         ViewCart viewCart = new ViewCart(cart);
-        PayForCart payForCart = new PayForCart(cart, usernamename, cart.getPrice(), cart.getString(), cart.getDiscount(1));
+        PayForCart payForCart = new PayForCart(cart, shop, usernamename, cart.getPrice(), cart.getString(), cart.getDiscount(userlevel));
+        BuyMembership buyMembership = new BuyMembership(usernamename, userlevel);
         con2.add(showCatalog);
         con2.add(addToCart);
         con2.add(viewCart);
         con2.add(payForCart);
+        con2.add(buyMembership);
 
         boolean loop = true;
         if (usertype.equals("staff")) {
             while (loop) {
                 Scanner reader = new Scanner(System.in);  // Reading from System.in
-                System.out.println("\n\n[1] Show catalog\n"
+                System.out.println("-----------------------\n[1] Show catalog\n"
                         + "[2] Create product\n"
                         + "[3] Change price\n"
                         + "[4] Change quantity\n"
                         + "[0] EXIT \n");
                 int n = reader.nextInt();
-                if (n == 0) {
+                if (n == 0)
                     System.exit(0);
-                } else {
+                else
                     con.get(n - 1).execute();
-                }
             }
         } else if (usertype.equals("customer")) {
             while (loop) {
                 Scanner reader = new Scanner(System.in);  // Reading from System.in
-                System.out.println("\n\n[1] Show catalog\n"
+                System.out.println("-----------------------\n[1] Show catalog\n"
                         + "[2] Add Product to cart\n"
                         + "[3] View cart\n"
                         + "[4] PAY\n"
+                        + "[5] Buy membership\n"
                         + "[0] EXIT \n");
                 int n = reader.nextInt();
-                if (n == 0) {
+                if (n == 0)
                     System.exit(0);
-                } else {
+                else
                     con2.get(n - 1).execute();
-                }
             }
         }
     }
@@ -114,6 +115,28 @@ public class Sahara {
         }
         return false;
     }
+    
+    public static boolean checkIfProdExists(int id, Store shop) {
+        ArrayList<Product> catalog = shop.getCatalog();
+        for (int i = 0; i < catalog.size(); i++) {
+            if ((catalog.get(i)).getProdID().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+        
+    }
+    
+    public static boolean checkForAvailability(int id, Store shop, int quantity) {
+        ArrayList<Product> catalog = shop.getCatalog();
+        for (int i = 0; i < catalog.size(); i++) {
+            if ((catalog.get(i)).getProdID().equals(id)) {
+                if ((catalog.get(i)).getProdQuantity() >= quantity)
+                    return true;
+            }
+        }
+        return false;
+    }
 
     public static Product requestProdID(String id, Store shop) {
         ArrayList<Product> catalog = shop.getCatalog();
@@ -134,5 +157,4 @@ public class Sahara {
         }
         return null;
     }
-
 }

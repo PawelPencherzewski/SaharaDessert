@@ -15,6 +15,10 @@ public class Store {
 	public void addProduct(Product p) {
 		catalogList.add(p);
 	}
+        
+        public int storeSize() {
+            return catalogList.size();
+        }
 	
 	public String getName() {
 		return name;

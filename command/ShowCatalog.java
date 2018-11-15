@@ -31,8 +31,10 @@ public class ShowCatalog implements Command {
         System.out.println("@@@@@@@@@@@@ " + shop.getName() + " CATALOG @@@@@@@@@@@");
         for (int i = 0; i < catalog.size(); i++) {													 // print catalog
             Product product = catalog.get(i);
-            System.out.printf("%-25s", (i + 1) + ": " + product.getProdName());
-            System.out.printf("%10s", " $");
+            System.out.printf("%-15s", (i + 1) + ": " + product.getProdName());
+            System.out.printf("%5s", " QTY: ");
+            System.out.printf("%5s", product.getProdQuantity());
+            System.out.printf("%8s", " $");
             System.out.printf("%.2f\n", product.getProdPrice());
         }
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");

@@ -19,7 +19,8 @@ public class Staff implements User {
 	@Override
 	public void login(String username) {
             try {
-                Sahara.letsgo("staff", username);
+                int userlevel = ScanForExistingUser.returnType(username);
+                Sahara.letsgo("staff", username, userlevel);
             } catch (IOException ex) {
                 Logger.getLogger(Staff.class.getName()).log(Level.SEVERE, null, ex);
             }

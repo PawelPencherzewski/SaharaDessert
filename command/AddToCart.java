@@ -8,6 +8,8 @@ package command;
 import java.util.Scanner;
 import static store.Sahara.cart;
 import static store.Sahara.checkIfNameExists;
+import static store.Sahara.checkForAvailability;
+import static store.Sahara.checkIfProdExists;
 import static store.Sahara.requestProdName;
 import store.Store;
 
@@ -23,21 +25,24 @@ public class AddToCart implements Command {
         shop = store;
     }
     
-    
     @Override
     public void execute() {
         
         Scanner reader = new Scanner(System.in);
             
-        System.out.print("ProductName: ");
-        String name = reader.next();
+        System.out.print("Product Number: ");
+        int productnumber = reader.nextInt();
         System.out.print("amount to puchase: ");
         int amount = Integer.parseInt(reader.next());
-        boolean found = checkIfNameExists(name, shop);
+        boolean found = checkIfProdExists(999+productnumber, shop);
+        boolean available = checkForAvailability(productnumber, shop, amount);
+        if(!available){
+            System.out.println("Quantity entered doesn't match store stock. /nTry Different amount.");
+            return;
+        }            
         if (found) {
             cart.addProduct(requestProdName(name, shop), amount);
             System.out.println(cart.getString());
-
         }
     }
 

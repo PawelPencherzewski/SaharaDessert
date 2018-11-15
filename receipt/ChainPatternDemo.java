@@ -25,4 +25,17 @@ public class ChainPatternDemo {
       rec.logReciept(Reciept.BANK, 
 		 "\n Order #: 1042 \n Total: $" + totalPrice + "\n Transaction Date:01/11/2018\n");
    }
+   
+   public static void printReceipt(String usernamename, double totalPrice, String boughtType) {
+      Reciept rec = getReciept();
+
+      rec.logReciept(Reciept.USER, 
+         "\n Username: " + usernamename + "\n Order #: 1042 \n Product : " + boughtType + "\n Total: $" + totalPrice + "\nTransaction Date:01/11/2018\n");
+
+      rec.logReciept(Reciept.STORE, 
+         "\n Username: " + usernamename + "\n Order #: 1042 \n Product : " + boughtType + "\n Total: $" + totalPrice + "\nTransaction Date:01/11/2018\n");
+
+      rec.logReciept(Reciept.BANK, 
+		 "\n Order #: 1042 \n Total: $" + totalPrice + "\n Transaction Date:01/11/2018\n");
+   }
 }

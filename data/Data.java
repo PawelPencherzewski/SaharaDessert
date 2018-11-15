@@ -66,7 +66,6 @@ public class Data {
     
     public void editTextFile(Store shop, String id, double price) {
         
-         ArrayList<Product> catalog = shop.getCatalog();
         ArrayList<String> contents = new ArrayList<>();
         String line;
         try {
@@ -95,8 +94,7 @@ public class Data {
     }
     
      public void editTextFile(Store shop,  String id, int quantity) {
-        //String catalogTextFile = "test/" + shop.getName() + "catalog.txt";
-        ArrayList<Product> catalog = shop.getCatalog();
+         
         ArrayList<String> contents = new ArrayList<>();
         String line;
         try {
@@ -123,13 +121,24 @@ public class Data {
     }
 
     private void writeToFile(Store shop, ArrayList<String> contents) {
-         
-        
         try {
             FileWriter fw = new FileWriter(shop.getFile());
             PrintWriter pw = new PrintWriter(fw);
             for (int i = 0; i < contents.size(); i++) {
                 pw.println(contents.get(i));
+            }
+            pw.close();
+            fw.close();
+        } catch (IOException e) {
+        }
+    }
+    
+    private void writeToUserfile(String userfile, ArrayList<String> usernamelist){
+        try {
+            FileWriter fw = new FileWriter(userfile);
+            PrintWriter pw = new PrintWriter(fw);
+            for (int i = 0; i < usernamelist.size(); i++) {
+                pw.println(usernamelist.get(i));
             }
             pw.close();
             fw.close();
@@ -143,14 +152,42 @@ public class Data {
 		
 		FileWriter fw = new FileWriter(fileName, true);
 		PrintWriter pw = new PrintWriter(fw);
-		pw.println(username);
+		pw.println(username + ",0");
 		pw.close();
 		fw.close();                
 		}
 		catch(IOException e) {}
     }
-        
+    
+    public void changeUserLevel(String username, int level){
+        ArrayList<String> usernamelist = new ArrayList<String>();
+	String usernameFile = "test/usernames.txt";
+		try{
+			// read in the list of usernames
+			String line = null;
+			FileReader fr = new FileReader (usernameFile);
+			BufferedReader br = new BufferedReader (fr);
+			while((line = br.readLine()) != null){
+				usernamelist.add(line);
+			}
+			br.close();
+			fr.close();
+		}
+		catch(FileNotFoundException e) { }
+		catch(IOException a) { }
+                
+        for (int i = 0; i < usernamelist.size(); i++) {
+            if ((usernamelist.get(i)).startsWith(username)) {
+                int startPosition = usernamelist.get(i).indexOf(",");
+                String newLine = (usernamelist.get(i)).substring(0, startPosition);
+                newLine += "," + level;
+                usernamelist.set(i, newLine);
+            }
+        }
+        writeToUserfile(usernameFile, usernamelist);
+        System.out.println("LOG IN TO APPLY YOUR MEMBERSHIP DISCOUNTS");
     }
+}
     
     
 
