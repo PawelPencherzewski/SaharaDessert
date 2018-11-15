@@ -33,7 +33,8 @@ public class Cart implements Icart{
         
         quantity.add(numOfProduct);
         totalPrice += (numOfProduct * p.getProdPrice());
-        items = items + numOfProduct;
+        items += numOfProduct;
+        
     }
     
     @Override
@@ -91,9 +92,9 @@ public class Cart implements Icart{
     }
     
     public void clearCart() {
-        for(int i = items-1; i >= 0; i-- ){
-            cart.remove(i);
-        }
+       
+        cart = null;
+        quantity = null;
         totalPrice = 0;
         items = 0;
     }
@@ -101,5 +102,9 @@ public class Cart implements Icart{
     @Override
     public int getQuantity(int i) {
         return quantity.get(i);
+    }
+
+    public int size() {
+        return cart.size();
     }
 }

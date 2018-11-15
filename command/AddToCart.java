@@ -7,10 +7,9 @@ package command;
 
 import java.util.Scanner;
 import static store.Sahara.cart;
-import static store.Sahara.checkIfNameExists;
 import static store.Sahara.checkForAvailability;
 import static store.Sahara.checkIfProdExists;
-import static store.Sahara.requestProdName;
+import static store.Sahara.requestProdID;
 import store.Store;
 
 /**
@@ -31,17 +30,17 @@ public class AddToCart implements Command {
         Scanner reader = new Scanner(System.in);
             
         System.out.print("Product Number: ");
-        int productnumber = reader.nextInt();
+        int productnumber = reader.nextInt() + 999;
         System.out.print("amount to puchase: ");
-        int amount = Integer.parseInt(reader.next());
-        boolean found = checkIfProdExists(999+productnumber, shop);
+        int amount = reader.nextInt();
+        boolean found = checkIfProdExists(productnumber, shop);
         boolean available = checkForAvailability(productnumber, shop, amount);
         if(!available){
-            System.out.println("Quantity entered doesn't match store stock. /nTry Different amount.");
-            return;
+            System.out.println("Quantity entered doesn't match store stock. \nTry Different amount.");
+            
         }            
-        if (found) {
-            cart.addProduct(requestProdName(name, shop), amount);
+        else {
+            cart.addProduct(requestProdID(Integer.toString(productnumber), shop), amount);
             System.out.println(cart.getString());
         }
     }

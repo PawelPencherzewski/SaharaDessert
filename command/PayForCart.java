@@ -13,7 +13,6 @@ import payment.bitcoinPay;
 import payment.creditCard;
 import payment.creditCardPay;
 import receipt.ChainPatternDemo;
-import static store.Sahara.cart;
 import store.Store;
 
 /**
@@ -52,10 +51,10 @@ public class PayForCart implements Command{
                     PaymentType bitcoin = new bitcoin(new bitcoinPay());
                     bitcoin.applyPay();
                     ChainPatternDemo.printReceipt(usernamename, totalPrice, cartList, disc);
-                    for(int j = 0; j < cart.getNumItems(); j++){
+                    for(int j = 0; j < cart.size() ; j++){
                         for(int i = 0; i < shop.storeSize(); i++){
                             if(((cart.getProduct(j).getProdID()).equals(shop.getCatalog().get(i).getProdID())) ){
-                                shop.getCatalog().get(i).changeQuantity(shop.getCatalog().get(i).getProdQuantity() - cart.getProduct(j).getProdQuantity());
+                                shop.getCatalog().get(i).changeQuantity(shop.getCatalog().get(i).getProdQuantity() - cart.quantity.get(j));
                             }
                         }
                     }
@@ -65,10 +64,14 @@ public class PayForCart implements Command{
                     PaymentType card = new creditCard(new creditCardPay());
                     card.applyPay();
                     ChainPatternDemo.printReceipt(usernamename, totalPrice, cartList, disc);
-                    for(int j = 0; j < cart.getNumItems(); j++){
+                    System.out.println(cart.getNumItems() +"&"+ shop.storeSize());
+                    for(int j = 0; j < cart.size(); j++){
                         for(int i = 0; i < shop.storeSize(); i++){
+                            System.out.println(":: " +shop.getCatalog().get(i).getProdID() + "j:" + j + "i: " + i);
+                            
                             if(((cart.getProduct(j).getProdID()).equals(shop.getCatalog().get(i).getProdID())) ){
-                                shop.getCatalog().get(i).changeQuantity(shop.getCatalog().get(i).getProdQuantity() - cart.getProduct(j).getProdQuantity());
+                                
+                                shop.getCatalog().get(i).changeQuantity(shop.getCatalog().get(i).getProdQuantity() - cart.quantity.get(j));
                             }
                         }
                     }                    

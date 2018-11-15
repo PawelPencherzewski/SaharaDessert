@@ -129,12 +129,18 @@ public class Sahara {
     
     public static boolean checkForAvailability(int id, Store shop, int quantity) {
         ArrayList<Product> catalog = shop.getCatalog();
+        
         for (int i = 0; i < catalog.size(); i++) {
-            if ((catalog.get(i)).getProdID().equals(id)) {
-                if ((catalog.get(i)).getProdQuantity() >= quantity)
+            System.out.println("id " + id + " i" + catalog.get(i).getProdID());
+            if (Integer.parseInt(catalog.get(i).getProdID()) == id) {
+               
+                if ((catalog.get(i)).getProdQuantity() >= quantity){
+                    
                     return true;
+                }
             }
         }
+        
         return false;
     }
 
