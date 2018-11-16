@@ -185,7 +185,7 @@ public class Data {
             }
         }
         writeToUserfile(usernameFile, usernamelist);
-        System.out.println("LOG IN TO APPLY YOUR MEMBERSHIP DISCOUNTS");
+        System.out.println("RE-LOG IN TO APPLY YOUR MEMBERSHIP DISCOUNTS");
     }
     
     public void editQuantityInFile(Store shop, String id, int newQuantity) {

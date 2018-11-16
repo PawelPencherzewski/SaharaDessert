@@ -27,7 +27,7 @@ public class Sahara {
 
     public static void letsgo(String usertype, String usernamename, int userlevel) throws IOException {
         Store shop = new Store("SAHARA"); 														 // Create Store
-        String pid = "999", pname;
+        String pid = "999";
         
         Data d = new Data();
         d.populateStore(shop, shop.getFile());

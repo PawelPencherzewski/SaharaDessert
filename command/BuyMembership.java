@@ -89,12 +89,16 @@ public class BuyMembership implements Command {
         System.out.print("PAY USING: \n[1] Bitcoin\n[2] Credit Card\n");
         String n = reader.nextLine();
         if (n.equals("1")){
-		PaymentType bitcoin = new bitcoin(new bitcoinPay());
+                System.out.print("Bitcoin Wallet Number: ");
+                int nr = reader.nextInt();
+		PaymentType bitcoin = new bitcoin(new bitcoinPay(), "Bitcoin");
 		bitcoin.applyPay();
                 ChainPatternDemo.printReceipt(usernamename, totalPrice, boughtType);
         }
         else if(n.equals("2")){
-		PaymentType card = new creditCard(new creditCardPay());
+                System.out.print("Credit Cart Number: ");
+                int nr = reader.nextInt();
+		PaymentType card = new creditCard(new creditCardPay(), "Credit Card");
 		card.applyPay();
                 ChainPatternDemo.printReceipt(usernamename, totalPrice, boughtType);
         }

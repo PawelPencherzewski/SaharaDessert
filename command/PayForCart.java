@@ -7,6 +7,10 @@ package command;
 
 import cart.Cart;
 import data.Data;
+import intrceptor.ClientRequestDispatcher;
+import intrceptor.ClientRequestInterceptor;
+import intrceptor.MarshaledRequest;
+import intrceptor.UnMarshaledRequest;
 import java.util.Scanner;
 import payment.PaymentType;
 import payment.bitcoin;
@@ -41,7 +45,6 @@ public class PayForCart implements Command{
     public void execute() {
         if(cart.getNumItems() == 0){
             System.out.println("The cart is empty. You can't pay for anything yet.");
-            return;
         }
         else{
             Scanner reader = new Scanner(System.in);  // Reading from System.in
@@ -49,8 +52,20 @@ public class PayForCart implements Command{
             System.out.print("PAY USING: \n[1] Bitcoin\n[2] Credit Card\n");
             String n = reader.nextLine();
             if (n.equals("1")){
-                    PaymentType bitcoin = new bitcoin(new bitcoinPay());
-                    bitcoin.applyPay();
+                System.out.print("Bitcoin Wallet Number: ");
+                int nr = reader.nextInt();
+                    
+                    PaymentType bitcoin = new bitcoin(new bitcoinPay(), "Bitcoin");
+                    
+                    ClientRequestInterceptor interceptor = new ClientRequestInterceptor();
+                    ClientRequestDispatcher dispatcher = new ClientRequestDispatcher();
+                    dispatcher.registerClientRequestInterceptor(interceptor);
+                    
+                    UnMarshaledRequest unmarshaledMessage = new UnMarshaledRequest(bitcoin, totalPrice, nr);
+                    dispatcher.dispatchClientRequestInterceptorPreMarshal(unmarshaledMessage);
+                    MarshaledRequest marshaledMessage = new MarshaledRequest(unmarshaledMessage.getObj());
+                    dispatcher.process(bitcoin);
+                    
                     ChainPatternDemo.printReceipt(usernamename, totalPrice, cartList, disc);
                     for(int j = 0; j < cart.size() ; j++){
                         for(int i = 0; i < shop.storeSize(); i++){
@@ -65,8 +80,23 @@ public class PayForCart implements Command{
                     cart.clearCart();
             }
             else if(n.equals("2")){
-                    PaymentType card = new creditCard(new creditCardPay());
-                    card.applyPay();
+                System.out.print("Credit Card Number: ");
+                int nr = reader.nextInt();
+                    //PaymentType card = new creditCard(new creditCardPay(), totalPrice, nr);
+                    
+                    PaymentType card = new creditCard(new creditCardPay(), "Credit Card");
+                    
+                    ClientRequestInterceptor interceptor = new ClientRequestInterceptor();
+                    ClientRequestDispatcher dispatcher = new ClientRequestDispatcher();
+                    dispatcher.registerClientRequestInterceptor(interceptor);
+                    
+                    UnMarshaledRequest unmarshaledMessage = new UnMarshaledRequest(card, totalPrice, nr);
+                    dispatcher.dispatchClientRequestInterceptorPreMarshal(unmarshaledMessage);
+                    MarshaledRequest marshaledMessage = new MarshaledRequest(unmarshaledMessage.getObj());
+                    dispatcher.process(card);
+                    
+                    Marshal marshalMessage = new Marshal("creditCard", totalPrice, nr);
+                    marshalMessage.execute();
                     ChainPatternDemo.printReceipt(usernamename, totalPrice, cartList, disc);
                     for(int j = 0; j < cart.size(); j++){
                         for(int i = 0; i < shop.storeSize(); i++){
