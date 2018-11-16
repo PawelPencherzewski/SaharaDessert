@@ -119,7 +119,7 @@ public class Sahara {
     public static boolean checkIfProdExists(int id, Store shop) {
         ArrayList<Product> catalog = shop.getCatalog();
         for (int i = 0; i < catalog.size(); i++) {
-            if ((catalog.get(i)).getProdID().equals(id)) {
+            if ((catalog.get(i)).getProdID().equals(Integer.toString(id))) {
                 return true;
             }
         }
@@ -131,11 +131,8 @@ public class Sahara {
         ArrayList<Product> catalog = shop.getCatalog();
         
         for (int i = 0; i < catalog.size(); i++) {
-            System.out.println("id " + id + " i" + catalog.get(i).getProdID());
             if (Integer.parseInt(catalog.get(i).getProdID()) == id) {
-               
                 if ((catalog.get(i)).getProdQuantity() >= quantity){
-                    
                     return true;
                 }
             }

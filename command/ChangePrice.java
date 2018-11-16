@@ -30,12 +30,11 @@ public class ChangePrice implements Command {
 
         Scanner reader = new Scanner(System.in);
         Data d = new Data();
-        System.out.print("ProductID: ");
-        String id = reader.next();
-        boolean found = checkIfIDExists(id, shop);
+        System.out.print("Product number: ");
+        int id = reader.nextInt() + 999;
+        boolean found = checkIfIDExists(Integer.toString(id), shop);
         if (found) {
-            //editTextFile(shop, id, changePrice(requestProdID(id, shop)));
-            d.editTextFile(shop, id, changePrice(requestProdID(id, shop)));
+            d.editTextFile(shop, Integer.toString(id), changePrice(requestProdID(Integer.toString(id), shop)));
         }
 
     }

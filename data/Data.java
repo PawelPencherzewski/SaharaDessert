@@ -187,6 +187,32 @@ public class Data {
         writeToUserfile(usernameFile, usernamelist);
         System.out.println("LOG IN TO APPLY YOUR MEMBERSHIP DISCOUNTS");
     }
+    
+    public void editQuantityInFile(Store shop, String id, int newQuantity) {
+        ArrayList<String> contents = new ArrayList<>();
+        String line;
+        try {
+            FileReader fr = new FileReader(shop.getFile());
+            BufferedReader br = new BufferedReader(fr);
+            while ((line = br.readLine()) != null) {
+                contents.add(line);
+            }
+            br.close();
+            fr.close();
+        } catch (FileNotFoundException e) {
+        } catch (IOException a) {
+        }
+
+        for (int i = 0; i < contents.size(); i++) {
+            if ((contents.get(i)).startsWith(id)) {
+                int startPosition = contents.get(i).lastIndexOf(",");
+                String newLine = (contents.get(i)).substring(0, startPosition);
+                newLine += "," + newQuantity;
+                contents.set(i, newLine);
+            }
+        }
+        writeToFile(shop, contents);
+    }
 }
     
     

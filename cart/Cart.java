@@ -51,11 +51,13 @@ public class Cart implements Icart{
     public String getString()
     {
         String out = "";
+        System.out.println("");
+        System.out.println("YOUR CART:");
         for(int i =0; i< cart.size(); i++)
         {
            out += cart.get(i).getProdName() + ", " + quantity.get(i) + "\n";
         }
-        out += "\n price: $" +totalPrice;
+        out += "\n price: $" +totalPrice + "\n";
         return out;
         //return cart.toString();
     }
@@ -92,9 +94,10 @@ public class Cart implements Icart{
     }
     
     public void clearCart() {
-       
-        cart = null;
-        quantity = null;
+        for(int i = cart.size()-1; i >= 0; i--) {
+            cart.remove(i);
+            quantity.remove(i);
+        }
         totalPrice = 0;
         items = 0;
     }

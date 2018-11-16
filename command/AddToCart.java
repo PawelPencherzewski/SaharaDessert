@@ -28,21 +28,26 @@ public class AddToCart implements Command {
     public void execute() {
         
         Scanner reader = new Scanner(System.in);
-            
+        System.out.println("");
         System.out.print("Product Number: ");
         int productnumber = reader.nextInt() + 999;
         System.out.print("amount to puchase: ");
         int amount = reader.nextInt();
         boolean found = checkIfProdExists(productnumber, shop);
         boolean available = checkForAvailability(productnumber, shop, amount);
-        if(!available){
-            System.out.println("Quantity entered doesn't match store stock. \nTry Different amount.");
-            
-        }            
-        else {
-            cart.addProduct(requestProdID(Integer.toString(productnumber), shop), amount);
-            System.out.println(cart.getString());
+        System.out.println("");
+        if(found){
+            if(!available){
+                System.out.println("Quantity entered doesn't match store stock. \nTry Different amount.");
+            }
+            else {
+                cart.addProduct(requestProdID(Integer.toString(productnumber), shop), amount);
+                System.out.println(cart.getString());
+            }
         }
+        else
+            System.out.println("Invalid product number.");
+        
     }
 
 }

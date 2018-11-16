@@ -6,6 +6,7 @@
 package command;
 
 import cart.Cart;
+import data.Data;
 import java.util.Scanner;
 import payment.PaymentType;
 import payment.bitcoin;
@@ -54,7 +55,10 @@ public class PayForCart implements Command{
                     for(int j = 0; j < cart.size() ; j++){
                         for(int i = 0; i < shop.storeSize(); i++){
                             if(((cart.getProduct(j).getProdID()).equals(shop.getCatalog().get(i).getProdID())) ){
-                                shop.getCatalog().get(i).changeQuantity(shop.getCatalog().get(i).getProdQuantity() - cart.quantity.get(j));
+                                int difference = shop.getCatalog().get(i).getProdQuantity() - cart.quantity.get(j);
+                                shop.getCatalog().get(i).changeQuantity(difference);
+                                Data d = new Data();
+                                d.editQuantityInFile(shop, shop.getCatalog().get(i).getProdID(), difference);
                             }
                         }
                     }
@@ -64,14 +68,13 @@ public class PayForCart implements Command{
                     PaymentType card = new creditCard(new creditCardPay());
                     card.applyPay();
                     ChainPatternDemo.printReceipt(usernamename, totalPrice, cartList, disc);
-                    System.out.println(cart.getNumItems() +"&"+ shop.storeSize());
                     for(int j = 0; j < cart.size(); j++){
                         for(int i = 0; i < shop.storeSize(); i++){
-                            System.out.println(":: " +shop.getCatalog().get(i).getProdID() + "j:" + j + "i: " + i);
-                            
                             if(((cart.getProduct(j).getProdID()).equals(shop.getCatalog().get(i).getProdID())) ){
-                                
-                                shop.getCatalog().get(i).changeQuantity(shop.getCatalog().get(i).getProdQuantity() - cart.quantity.get(j));
+                                int difference = shop.getCatalog().get(i).getProdQuantity() - cart.quantity.get(j);
+                                shop.getCatalog().get(i).changeQuantity(difference);
+                                Data d = new Data();
+                                d.editQuantityInFile(shop, shop.getCatalog().get(i).getProdID(), difference);
                             }
                         }
                     }                    
