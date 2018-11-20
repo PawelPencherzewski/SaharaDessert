@@ -21,7 +21,7 @@ import store.Store;
 
 /**
  *
- * @author Mark
+ * @author Pawel
  */
 public class Data {
     
@@ -30,13 +30,6 @@ public class Data {
         
     }
     
-    /**
-     *
-     * @param shop
-     * @param catalog
-     * @throws FileNotFoundException
-     * @throws IOException
-     */
     public void populateStore(Store shop, String catalog) throws FileNotFoundException, IOException
     {
      String line = null;

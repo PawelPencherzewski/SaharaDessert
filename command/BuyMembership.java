@@ -16,6 +16,10 @@ import payment.creditCardPay;
 import receipt.ChainPatternDemo;
 import user.ScanForExistingUser;
 
+/**
+ *
+ * @author Pawel
+ */
 public class BuyMembership implements Command {
     String usernamename;
     int userlevel;
