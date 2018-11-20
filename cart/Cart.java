@@ -89,7 +89,7 @@ public class Cart implements Icart{
     public double getDiscount(int type){
         DiscountFacade facade = new DiscountFacade();
                 
-        double discount = facade.discount(this,type );
+        double discount = facade.discount(this.getNumItems(),type );
         return discount;
     }
     

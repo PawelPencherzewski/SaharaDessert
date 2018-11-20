@@ -22,18 +22,18 @@ public class DiscountFacade {
         
     }
     
-    public double discount(Cart cart, int type)
+    public double discount(int items, int type)
     {
         double discount = 0;
         switch (type) {
             case 0:
-                discount = customerDiscount.calculateDiscount(cart);
+                discount = customerDiscount.calculateDiscount(items);
                 break;
             case 1:
-                discount = goldCustomerDiscount.calculateDiscount(cart);
+                discount = goldCustomerDiscount.calculateDiscount(items);
                 break;
             case 2:
-                discount = platinumCustomerDiscount.calculateDiscount(cart);
+                discount = platinumCustomerDiscount.calculateDiscount(items);
                 break;
             default:
                 break;

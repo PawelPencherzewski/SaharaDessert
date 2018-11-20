@@ -16,18 +16,18 @@ public class PlatinumCustomerDiscount implements Discount{
 
     
     @Override
-    public double getBulkOrderDiscount(Cart cart) {
+    public double getBulkOrderDiscount(int items) {
     double discount = 0;
-        if(cart.getNumItems() > 50)
+        if(items > 50)
         {
             discount = 0.20;
         }
-    else if(cart.getNumItems() > 30)
+    else if(items > 30)
         {
             discount = 0.15;
         }
         
-    else if(cart.getNumItems() > 20)
+    else if(items > 20)
         {
             discount = 0.10;
         }
@@ -41,9 +41,9 @@ public class PlatinumCustomerDiscount implements Discount{
 
 
     @Override
-    public double calculateDiscount(Cart cart) {
+    public double calculateDiscount(int items) {
         double discount =0;
-        discount += getBulkOrderDiscount(cart);
+        discount += getBulkOrderDiscount(items);
         discount += getMembershipDiscount();
         return discount;
     }

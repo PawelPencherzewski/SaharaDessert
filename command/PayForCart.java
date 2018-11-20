@@ -7,10 +7,10 @@ package command;
 
 import cart.Cart;
 import data.Data;
-import intrceptor.ClientRequestDispatcher;
-import intrceptor.ClientRequestInterceptor;
-import intrceptor.MarshaledRequest;
-import intrceptor.UnMarshaledRequest;
+import interceptor.ClientRequestDispatcher;
+import interceptor.ClientRequestInterceptor;
+import interceptor.MarshaledRequest;
+import interceptor.UnMarshaledRequest;
 import java.util.Scanner;
 import payment.PaymentType;
 import payment.bitcoin;

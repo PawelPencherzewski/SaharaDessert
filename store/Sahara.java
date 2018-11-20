@@ -131,7 +131,10 @@ public class Sahara {
         
         for (int i = 0; i < catalog.size(); i++) {
             if (Integer.parseInt(catalog.get(i).getProdID()) == id) {
-                if ((catalog.get(i)).getProdQuantity() >= quantity){
+                if ((catalog.get(i)).getProdQuantity() == 0){
+                    return false;
+                }
+                else if ((catalog.get(i)).getProdQuantity() >= quantity){
                     return true;
                 }
             }

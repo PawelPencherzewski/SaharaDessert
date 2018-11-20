@@ -13,17 +13,11 @@ package cart;
  */
 public interface Discount {
     
-    /**
-     *  -> discount for large bulk orders
-     *  -> discount dependant on type of customer ( premium, gold, etc...)
-     *  -> 
-     * 
-     * @param user
-     * @return 
-     */
+   
     
-    abstract double calculateDiscount(Cart cart);
-    abstract double getBulkOrderDiscount(Cart cart);
+    
+    abstract double calculateDiscount(int items);
+    abstract double getBulkOrderDiscount(int items);
     abstract double getMembershipDiscount();
     
     
