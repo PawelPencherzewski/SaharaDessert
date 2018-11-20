@@ -95,8 +95,6 @@ public class PayForCart implements Command{
                     MarshaledRequest marshaledMessage = new MarshaledRequest(unmarshaledMessage.getObj());
                     dispatcher.process(card);
                     
-                    Marshal marshalMessage = new Marshal("creditCard", totalPrice, nr);
-                    marshalMessage.execute();
                     ChainPatternDemo.printReceipt(usernamename, totalPrice, cartList, disc);
                     for(int j = 0; j < cart.size(); j++){
                         for(int i = 0; i < shop.storeSize(); i++){
