@@ -38,7 +38,5 @@ public class ShowCatalog implements Command {
             System.out.printf("%.2f\n", product.getProdPrice());
         }
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
     }
-
 }

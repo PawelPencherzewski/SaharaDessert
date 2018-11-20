@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import store.Product;
+import store.ProductBuilder;
+import store.ProductBuilderDirector;
+import store.ProductBuilderImpl;
 import static store.Sahara.ordinalIndexOf;
 import store.Store;
 
@@ -22,9 +25,6 @@ import store.Store;
  * @author Mark
  */
 public class Data {
-
-    
-    
     
     public Data()
     {
@@ -42,24 +42,28 @@ public class Data {
     {
      String line = null;
             
-           FileReader fr = new FileReader(catalog);
-           BufferedReader br = new BufferedReader(fr);
-           String[] splitPart = new String[4];
-           String pid = "999", pname;
+        FileReader fr = new FileReader(catalog);
+        BufferedReader br = new BufferedReader(fr);
+        String[] splitPart = new String[4];
+        String pid = "999", pname;
         double pprice;
         int pqty;
         
             while ((line = br.readLine()) != null) {
+                                                                                                       // PRODUCT BUILDER AND DIRECTOR
+                final ProductBuilder builder = new ProductBuilderImpl();
+                final ProductBuilderDirector productBuilderDirector = new ProductBuilderDirector(builder);
                 splitPart = line.split(",");
                 pid = splitPart[0];
                 pname = splitPart[1];
                 pprice = Double.parseDouble(splitPart[2]);
                 pqty = Integer.parseInt(splitPart[3]);
-                Product newItem = new Product.ProductBuilder(pid, pname).price(pprice).quantity(pqty).build(); // Create product
-                shop.addProduct(newItem);														                                         	     // add product to store
+                
+                Product p = productBuilderDirector.construct(pid, pname, pprice, pqty);
+                shop.addProduct( p );         // ADD PRODUCT TO STORE
             } 
             
-                        br.close();
+            br.close();
             fr.close();
          
         }
@@ -212,6 +216,25 @@ public class Data {
             }
         }
         writeToFile(shop, contents);
+    }
+    
+    public String returnLastID(Store shop){
+        String line;
+        String lastID = "999";
+        String[] splitPart = new String[4];
+        try {
+            FileReader fr = new FileReader(shop.getFile());
+            BufferedReader br = new BufferedReader(fr);
+            while ((line = br.readLine()) != null) {
+                splitPart = line.split(",");
+                lastID = splitPart[0];
+            }
+            br.close();
+            fr.close();
+        } catch (FileNotFoundException e) {
+        } catch (IOException a) {
+        }
+        return lastID;
     }
 }
     

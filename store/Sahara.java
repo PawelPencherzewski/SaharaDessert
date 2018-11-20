@@ -26,15 +26,14 @@ public class Sahara {
     //public static Store shop = new Store("SAHARA");
 
     public static void letsgo(String usertype, String usernamename, int userlevel) throws IOException {
-        Store shop = new Store("SAHARA"); 														 // Create Store
-        String pid = "999";
+        Store shop = new Store("SAHARA");
         
         Data d = new Data();
         d.populateStore(shop, shop.getFile());
 
         ArrayList<Command> con = new ArrayList();
         ChangePrice changePrice = new ChangePrice(shop);
-        CreateProduct createProduct = new CreateProduct(shop, pid);
+        CreateProduct createProduct = new CreateProduct(shop, d.returnLastID(shop));
         ChangeQuantity changeQuantity = new ChangeQuantity(shop);
         ShowCatalog showCatalog = new ShowCatalog(shop);
         con.add(showCatalog);

@@ -46,7 +46,7 @@ public class ChangeQuantity implements Command {
 		
 		System.out.print("New quantity: ");
 		int quantity = reader.nextInt();
-		p.changeQuantity(quantity);
+		p.setQuantity(quantity);
 		return quantity;
 	}
 

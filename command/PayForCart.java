@@ -71,7 +71,7 @@ public class PayForCart implements Command{
                         for(int i = 0; i < shop.storeSize(); i++){
                             if(((cart.getProduct(j).getProdID()).equals(shop.getCatalog().get(i).getProdID())) ){
                                 int difference = shop.getCatalog().get(i).getProdQuantity() - cart.quantity.get(j);
-                                shop.getCatalog().get(i).changeQuantity(difference);
+                                shop.getCatalog().get(i).setQuantity(difference);
                                 Data d = new Data();
                                 d.editQuantityInFile(shop, shop.getCatalog().get(i).getProdID(), difference);
                             }
@@ -102,7 +102,7 @@ public class PayForCart implements Command{
                         for(int i = 0; i < shop.storeSize(); i++){
                             if(((cart.getProduct(j).getProdID()).equals(shop.getCatalog().get(i).getProdID())) ){
                                 int difference = shop.getCatalog().get(i).getProdQuantity() - cart.quantity.get(j);
-                                shop.getCatalog().get(i).changeQuantity(difference);
+                                shop.getCatalog().get(i).setQuantity(difference);
                                 Data d = new Data();
                                 d.editQuantityInFile(shop, shop.getCatalog().get(i).getProdID(), difference);
                             }

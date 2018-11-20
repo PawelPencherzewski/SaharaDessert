@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 import store.Product;
+import store.ProductBuilder;
+import store.ProductBuilderDirector;
+import store.ProductBuilderImpl;
 import store.Store;
 
 /**
@@ -51,14 +54,18 @@ public class CreateProduct implements Command {
 
         System.out.print("Product name: ");
         String n = reader.nextLine();
-        System.out.print("Price (0 for default): ");
+        System.out.print("Price: ");
         double p = reader.nextDouble();
-        System.out.print("Quantity (0 for default): ");
+        System.out.print("Quantity: ");
         int q = reader.nextInt();
 
         int id = Integer.parseInt(lastID) + 1;
         String idS = Integer.toString(id);
-        Product newItem = new Product.ProductBuilder(idS, n).price(p).quantity(q).build(); // Create product
+                                                                                                       // PRODUCT BUILDER AND DIRECTOR
+        final ProductBuilder builder= new ProductBuilderImpl();
+        final ProductBuilderDirector productBuilderDirector = new ProductBuilderDirector(builder);
+        
+        Product newItem = productBuilderDirector.construct(idS, n, p, q); // Create product
         return newItem;
     }
 

@@ -44,7 +44,7 @@ public class ChangePrice implements Command {
 		
 		System.out.print("New price: ");
 		double price = reader.nextDouble();
-		p.changePrice(price);
+		p.setPrice(price);
 		return price;
 	}
 }
