@@ -1,14 +1,10 @@
 package user;
-public class UserFactory {
-
-	public User createUser(String usr){
-		if(usr.equals("customer")){
-			return new Customer();
-		}
-		else if(usr.equals("staff")){
-			return new Staff();
-		}
-		else
-			return null;
-	}
+public abstract class UserFactory {
+        String type = "";
+        
+        public UserFactory(){
+            User user = createUser(type);
+        }
+        
+	abstract protected User createUser(String type);
 }

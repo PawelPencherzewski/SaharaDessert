@@ -9,15 +9,13 @@ public class userFactoryDemo {
 		
 		// Scan user file
 		boolean found = ScanForExistingUser.scan(args[1]);
-		
-		// CREATE USER FACTORY
-		UserFactory userFact = new UserFactory();
 
 		// Login/Register logic
 		if(found == true){
 			if(args[1].startsWith("c.")){
 				if(args[0].equals("login")){
-					User customer1 = userFact.createUser("customer");
+                                        UserFactory factory = new CustomerUserFactory();
+					User customer1 = factory.createUser("customer");
 					customer1.login(args[1]);
 				}
 				else if(args[0].equals("register"))
@@ -27,7 +25,8 @@ public class userFactoryDemo {
 			}
 			else if(args[1].startsWith("s.")){
 				if(args[0].equals("login")){
-					User staff1 = userFact.createUser("staff");
+                                        UserFactory factory = new StaffUserFactory();
+					User staff1 = factory.createUser("staff");
 					staff1.login(args[1]);
 				}
 				else if(args[0].equals("register"))
@@ -43,11 +42,13 @@ public class userFactoryDemo {
 				System.out.println("Username not found..");
 			else if(args[0].equals("register")){
 				if(args[1].startsWith("s.")){
-					User staff1 = userFact.createUser("staff");
+                                        UserFactory factory = new StaffUserFactory();
+					User staff1 = factory.createUser("staff");
 					staff1.register(args[1]);
 				}
 				else if(args[1].startsWith("c.")){
-					User customer1 = userFact.createUser("customer");
+                                        UserFactory factory = new CustomerUserFactory();
+					User customer1 = factory.createUser("customer");
 					customer1.register(args[1]);
 				}
 				else

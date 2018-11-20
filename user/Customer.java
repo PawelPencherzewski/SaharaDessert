@@ -10,9 +10,7 @@ public class Customer implements User {
 												// Customer 
 	@Override
 	public void register(String username) {
-		System.out.println("Inside customer::register() method");
                 String usernameFile = "test/usernames.txt";
-		
                 Data d = new Data();
                 d.register(username, usernameFile);
 	}
