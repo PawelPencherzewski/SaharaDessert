@@ -31,6 +31,5 @@ public class ClientRequestDispatcher {
     }
     
     public void process(PaymentType pt) {
-        pt.applyPay();
     }
 }

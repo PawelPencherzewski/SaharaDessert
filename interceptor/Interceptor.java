@@ -11,4 +11,7 @@ package interceptor;
  */
 public interface Interceptor {
     
+    public void onPreMarshalRequest(UnMarshaledRequest context);
+    
+    public void onPostMarshalRequest(MarshaledRequest context);
 }

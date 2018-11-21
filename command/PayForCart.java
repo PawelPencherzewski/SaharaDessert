@@ -62,8 +62,8 @@ public class PayForCart implements Command{
                     dispatcher.registerClientRequestInterceptor(interceptor);
                     
                     UnMarshaledRequest unmarshaledMessage = new UnMarshaledRequest(bitcoin, totalPrice, nr);
-                    dispatcher.dispatchClientRequestInterceptorPreMarshal(unmarshaledMessage);
                     MarshaledRequest marshaledMessage = new MarshaledRequest(unmarshaledMessage.getObj());
+                    dispatcher.dispatchClientRequestInterceptorPreMarshal(unmarshaledMessage);
                     dispatcher.process(bitcoin);
                     
                     ChainPatternDemo.printReceipt(usernamename, totalPrice, cartList, disc);
@@ -85,14 +85,13 @@ public class PayForCart implements Command{
                     //PaymentType card = new creditCard(new creditCardPay(), totalPrice, nr);
                     
                     PaymentType card = new creditCard(new creditCardPay(), "Credit Card");
+                    ClientRequestInterceptor interceptor = new ClientRequestInterceptor();                   // create interceptor
+                    ClientRequestDispatcher dispatcher = new ClientRequestDispatcher();                      // create dispatcher
+                    dispatcher.registerClientRequestInterceptor(interceptor);                                // register interceptor with dispatcher
                     
-                    ClientRequestInterceptor interceptor = new ClientRequestInterceptor();
-                    ClientRequestDispatcher dispatcher = new ClientRequestDispatcher();
-                    dispatcher.registerClientRequestInterceptor(interceptor);
-                    
-                    UnMarshaledRequest unmarshaledMessage = new UnMarshaledRequest(card, totalPrice, nr);
-                    dispatcher.dispatchClientRequestInterceptorPreMarshal(unmarshaledMessage);
+                    UnMarshaledRequest unmarshaledMessage = new UnMarshaledRequest(card, totalPrice, nr);    // create unmarshaled message               
                     MarshaledRequest marshaledMessage = new MarshaledRequest(unmarshaledMessage.getObj());
+                    dispatcher.dispatchClientRequestInterceptorPreMarshal(unmarshaledMessage);
                     dispatcher.process(card);
                     
                     ChainPatternDemo.printReceipt(usernamename, totalPrice, cartList, disc);

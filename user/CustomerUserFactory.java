@@ -13,6 +13,6 @@ public class CustomerUserFactory extends UserFactory{
     
     @Override
     public User createUser(String type) {
-	return new Staff();
+	return new Customer();
     }
 }

@@ -15,11 +15,13 @@ public class ClientRequestInterceptor implements Interceptor{
         
     }
     
+    @Override
     public void onPreMarshalRequest(UnMarshaledRequest context) {
         System.out.println(context.getObj() + " called");
     }
     
+    @Override
     public void onPostMarshalRequest(MarshaledRequest context) {
-        
+        System.out.println(context.getObj() + " called");
     }
 }
