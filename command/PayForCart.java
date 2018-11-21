@@ -43,6 +43,7 @@ public class PayForCart implements Command{
 
     @Override
     public void execute() {
+        this.totalPrice = cart.getPrice();
         if(cart.getNumItems() == 0){
             System.out.println("The cart is empty. You can't pay for anything yet.");
         }
